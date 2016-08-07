@@ -14,7 +14,9 @@ public class InterfaceLister {
 		Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
 		while(interfaces.hasMoreElements()) {
 			NetworkInterface ni = interfaces.nextElement();
-			System.out.println(ni);
+//			System.out.println(ni);
+//			System.out.println(ni.getName());
+			System.out.println(ni.getDisplayName());
 		}
 	}
 }
