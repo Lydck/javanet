@@ -27,8 +27,10 @@ public class SingleFieldHTTPServer {
 	private final String encoding;
 	public SingleFieldHTTPServer(String data, String encoding, String mimeType, int port) throws UnsupportedEncodingException {
 		this.content = data.getBytes(encoding);
-		String header = "HTTP/1.0 200 OK\r\n"
+		String header = "HTTP/1.0 302 FOUND\r\n"
 				+ "Server: OneFile 2.0\r\n"
+				+ "Server: Redirector 1.1\r\n"
+				+ "Location: www.baidu.com\r\n"
 				+ "Content-length: " + this.content.length + "\r\n"
 				+ "Content-type: " + mimeType + "; charset=" + encoding + "\r\n\r\n";
 		this.header = header.getBytes(Charset.forName("ASCII"));
@@ -81,7 +83,12 @@ public class SingleFieldHTTPServer {
 	public static void main(String[] args) throws IOException {
 		String contentType = URLConnection.getFileNameMap().getContentTypeFor("E:\\github\\javanet\\src\\main\\java\\com\\lydck\\javanet\\SingleFieldHTTPServer.java");
 		byte[] content = Files.readAllBytes(Paths.get("E:\\github\\javanet\\src\\main\\java\\com\\lydck\\javanet\\SingleFieldHTTPServer.java"));
+		/*String content = "<HTML><HEAD><TITLE>Document moved</TITLE></HEAD>\r\n"
+				+ "<BODY><H1>Document moved</H1>\r\n"
+				+ "The document has moved to\r\n"
+				+ "</BODY></HTML>\r\n";*/
 		SingleFieldHTTPServer server = new SingleFieldHTTPServer(new String(content), "UTF-8", contentType, 80);
+		
 		server.start();
 		
 	}
